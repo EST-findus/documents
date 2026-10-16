@@ -1,0 +1,57 @@
+erDiagram
+    members ||..o{ posts : "게시글 작성"
+    members ||..o{ comments : "댓글 작성"
+    posts ||..o{ comments : "댓글 포함"
+
+    members {
+        uuid id PK "회원 ID"
+        varchar(254) email UK "로그인 이메일"
+        varchar(255) password_hash "비밀번호 해시"
+        varchar(100) name "이름"
+        varchar(50) nickname "닉네임"
+        varchar(20) role "USER 또는 ADMIN"
+        varchar(20) status "ACTIVE 또는 INACTIVE"
+        timestamp(6) created_at "생성 시각"
+        timestamp(6) updated_at "수정 시각"
+        timestamp(6) deleted_at "NULL 허용 - 소프트 삭제 시각"
+    }
+
+    posts {
+        uuid id PK "게시글 ID"
+        uuid member_id FK "작성자 회원 ID"
+        varchar(200) title "제목"
+        text content "본문 - 최대 10000자"
+        timestamp(6) created_at "생성 시각"
+        timestamp(6) updated_at "수정 시각"
+        timestamp(6) deleted_at "NULL 허용 - 소프트 삭제 시각"
+    }
+
+    comments {
+        uuid id PK "댓글 ID"
+        uuid post_id FK "게시글 ID"
+        uuid member_id FK "댓글 작성자 회원 ID"
+        varchar(1000) content "댓글 내용"
+        timestamp(6) created_at "생성 시각"
+        timestamp(6) updated_at "수정 시각"
+        timestamp(6) deleted_at "NULL 허용 - 소프트 삭제 시각"
+    }
+
+    missing_persons {
+        uuid id PK "우리 서비스 실종자 ID"
+        varchar(30) source_id UK "경찰청 원본 식별자"
+        varchar(100) name "이름"
+        varchar(3) category "원본 분류 코드"
+        text sex "NULL 허용 - 성별"
+        text occurrence_date "NULL 허용 - 원본 발생일 문자열"
+        integer age "NULL 허용 - 당시 나이"
+        integer age_now "NULL 허용 - 현재 나이"
+        text address "NULL 허용 - 발생 장소"
+        text clothing "NULL 허용 - 착의 사항"
+        text features "NULL 허용 - 신체 특징"
+        varchar(500) photo_url "NULL 허용 - 원본 사진 조회 주소"
+        boolean source_available "원본 공개 여부 - 발견 완료 여부가 아님"
+        timestamp(6) last_seen_at "마지막 수집 확인 시각"
+        timestamp(6) created_at "생성 시각"
+        timestamp(6) updated_at "수정 시각"
+        timestamp(6) deleted_at "NULL 허용 - 소프트 삭제 시각"
+    }

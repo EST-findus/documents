@@ -1,0 +1,11 @@
+# 운영체제와 개인 IDE 설정
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+
+# Office·LibreOffice에서 문서를 열 때 생성하는 임시 파일
+~$*
+.~lock.*#
+*.tmp
