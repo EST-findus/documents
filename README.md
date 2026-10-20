@@ -12,6 +12,7 @@ FindUs의 기획·요구사항·발표자료·ERD·화면 목업·API 명세서�
 | [planning](planning/) | 기존 기획서·원페이지 리포트 및 참고자료 |
 | [research](research/) | 서비스 비교·조사자료 |
 | [prompt](prompt/) | 데일리 스크럼 등 공용 프롬프트 |
+| [guides](guides/) | [실종아동 동기화·DB 테스트 가이드](guides/safedream-local-test.md) |
 
 ## 🗂️ 자료 관리
 
