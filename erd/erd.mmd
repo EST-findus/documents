@@ -2,6 +2,11 @@ erDiagram
     members ||..o{ posts : "게시글 작성"
     members ||..o{ comments : "댓글 작성"
     posts ||..o{ comments : "댓글 포함"
+    members ||..o{ member_favorites : "관심 등록"
+    missing_persons ||..o{ member_favorites : "관심 대상"
+    missing_persons ||..o{ missing_person_images : "사진 보관"
+    missing_persons ||..o{ missing_person_ai_images : "AI 결과 보관"
+    missing_person_images ||..o{ missing_person_ai_images : "생성 원본 참조"
 
     members {
         uuid id PK "회원 ID"
@@ -48,9 +53,50 @@ erDiagram
         text address "NULL 허용 - 발생 장소"
         text clothing "NULL 허용 - 착의 사항"
         text features "NULL 허용 - 신체 특징"
-        varchar(500) photo_url "NULL 허용 - 원본 사진 조회 주소"
+        varchar(500) photo_url "NULL 허용 - 기존 대표 사진 출처"
         boolean source_available "원본 공개 여부 - 발견 완료 여부가 아님"
         timestamp(6) last_seen_at "마지막 수집 확인 시각"
+        timestamp(6) created_at "생성 시각"
+        timestamp(6) updated_at "수정 시각"
+        timestamp(6) deleted_at "NULL 허용 - 소프트 삭제 시각"
+    }
+
+    %% member_id와 missing_person_id의 조합에 복합 UNIQUE를 적용합니다.
+    member_favorites {
+        uuid id PK "관심 등록 ID"
+        uuid member_id FK "회원 ID - 실종자 ID와 복합 UNIQUE"
+        uuid missing_person_id FK "관심아동 ID - 회원 ID와 복합 UNIQUE"
+        timestamp(6) created_at "최초 등록 시각"
+        timestamp(6) updated_at "수정 시각"
+        timestamp(6) deleted_at "NULL 허용 - 취소 시각, 재등록 시 복원"
+    }
+
+    %% missing_person_id와 sort_order의 조합에 복합 UNIQUE를 적용합니다.
+    missing_person_images {
+        uuid id PK "사진 ID"
+        uuid missing_person_id FK "실종아동 ID - 사진 순번과 복합 UNIQUE"
+        integer sort_order "아동별 원본 사진 순번 - 0부터 시작"
+        varchar(1024) source_url "출처 추적용 - 화면 직접 사용 금지"
+        varchar(30) content_type "image/jpeg 또는 image/png"
+        bytea content "사진 원본 - 최대 2MB"
+        integer byte_size "사진 원본 바이트 수"
+        varchar(64) sha256 "사진 내용 SHA-256 해시"
+        boolean is_main "대표 원본 여부 - 활성 사진 중 최대 한 장"
+        timestamp(6) created_at "생성 시각"
+        timestamp(6) updated_at "수정 시각"
+        timestamp(6) deleted_at "NULL 허용 - 소프트 삭제 시각"
+    }
+
+    %% AI 원본은 같은 아동 소속이어야 하며 source_image_id와 missing_person_id의 복합 FK로 검증합니다.
+    missing_person_ai_images {
+        uuid id PK "AI 결과 ID"
+        uuid missing_person_id FK "실종아동 ID"
+        uuid source_image_id FK "생성에 사용한 원본 사진 ID"
+        integer target_age "우리 서비스가 지정한 목표 나이 - 0~200"
+        bytea content "AI 생성 결과 - 원본 파일 복제 아님"
+        varchar(30) content_type "image/jpeg 또는 image/png"
+        integer byte_size "결과 파일 바이트 수 - 최대 10MB"
+        boolean is_main "대표 AI 여부 - 활성 사진 중 최대 한 장"
         timestamp(6) created_at "생성 시각"
         timestamp(6) updated_at "수정 시각"
         timestamp(6) deleted_at "NULL 허용 - 소프트 삭제 시각"
