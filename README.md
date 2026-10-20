@@ -12,7 +12,7 @@ FindUs의 기획·요구사항·발표자료·ERD·화면 목업·API 명세서�
 | [planning](planning/) | 기존 기획서·원페이지 리포트 및 참고자료 |
 | [research](research/) | 서비스 비교·조사자료 |
 | [prompt](prompt/) | 데일리 스크럼 등 공용 프롬프트 |
-| [guides](guides/) | [실종아동 동기화·DB 테스트 가이드](guides/safedream-local-test.md) |
+| [guides](guides/) | [실종아동 테스트](guides/safedream-local-test.md), [대표 사진·AI 저장 구조](guides/ai-image-storage.md) |
 
 ## 🗂️ 자료 관리
 
@@ -20,7 +20,7 @@ FindUs의 기획·요구사항·발표자료·ERD·화면 목업·API 명세서�
 - API 명세서 PDF는 작성 당시의 스냅샷입니다. 최신 API 확인·호출은 백엔드 실행 후 [Swagger](http://localhost:18080/swagger-ui/index.html)를 사용합니다.
 
 - ERDCloud에서는 [erdcloud-import.sql](erd/erdcloud-import.sql)을 Import하여 테이블과 관계를 확인합니다. 이 파일은 ERD 작성용이며 실제 DB 변경에는 사용하지 않습니다.
-- ERD 원본은 [erd.mmd](erd/erd.mmd)이며, 이미지는 `erd/`에서 함께 관리합니다.
+- ERD 원본은 [erd.mmd](erd/erd.mmd)이며, 이미지는 `erd/`에서 함께 관리합니다. 기존 PNG는 해당 버전의 스냅샷이며, 관심아동·다중 사진 테이블을 포함한 최신 7개 엔티티 구조는 Mermaid 원본과 Import용 SQL을 기준으로 확인합니다.
 - 발표자료는 `ppt/`, 요구사항 정의서는 `prd/`에 저장합니다. 기존 `planning/` 자료는 이력과 참고용으로 유지합니다.
 - 자료를 수정할 때 해당 문서의 버전과 변경 내용을 커밋·PR에 남깁니다.
 
