@@ -4,7 +4,7 @@ FindUs의 기획·요구사항·발표자료·ERD·화면 목업·API 명세서�
 
 | 폴더 | 자료 |
 | --- | --- |
-| [erd](erd/) | ERD 이미지, Mermaid 원본, ERDCloud Import용 SQL |
+| [erd](erd/) | [ERD v2](erd/erd_v2.png), [ERD v3](erd/erd_v3.png), [v3 Import SQL](erd/erd_v3.sql), [테이블 명세서](erd/README.md) |
 | [ppt](ppt/) | 중간발표 등 발표자료 |
 | [prd](prd/) | 요구사항 정의서·PRD |
 | [mockup/v1](mockup/v1/) | 화면 설계 목업 이미지 11개 |
@@ -19,8 +19,8 @@ FindUs의 기획·요구사항·발표자료·ERD·화면 목업·API 명세서�
 - 화면 설계는 `mockup/v1/`의 번호순 이미지를 확인합니다.
 - API 명세서 PDF는 작성 당시의 스냅샷입니다. 최신 API 확인·호출은 백엔드 실행 후 [Swagger](http://localhost:18080/swagger-ui/index.html)를 사용합니다.
 
-- ERDCloud에서는 [erdcloud-import.sql](erd/erdcloud-import.sql)을 Import하여 테이블과 관계를 확인합니다. 이 파일은 ERD 작성용이며 실제 DB 변경에는 사용하지 않습니다.
-- ERD 원본은 [erd.mmd](erd/erd.mmd)이며, 이미지는 `erd/`에서 함께 관리합니다. 기존 PNG는 해당 버전의 스냅샷이며, 관심아동·다중 사진 테이블을 포함한 최신 7개 엔티티 구조는 Mermaid 원본과 Import용 SQL을 기준으로 확인합니다.
+- ERDCloud에서는 [erd_v3.sql](erd/erd_v3.sql)을 Import하여 최신 테이블과 관계를 확인합니다. [v2 SQL](erd/erd_v2.sql)은 이전 6개 테이블 구조입니다. Import용 SQL은 실제 DB 변경에는 사용하지 않습니다.
+- ERD 이미지는 [v1](erd/erd_261016_v1.png)·[v2](erd/erd_v2.png)·[v3](erd/erd_v3.png)로 보관합니다. 첨부 이미지는 작성 당시의 도식이며, 최신 7개 엔티티의 정확한 컬럼·외래키는 [테이블 명세서](erd/README.md), [Mermaid 원본](erd/erd.mmd), v3 SQL을 기준으로 확인합니다.
 - 발표자료는 `ppt/`, 요구사항 정의서는 `prd/`에 저장합니다. 기존 `planning/` 자료는 이력과 참고용으로 유지합니다.
 - 자료를 수정할 때 해당 문서의 버전과 변경 내용을 커밋·PR에 남깁니다.
 
