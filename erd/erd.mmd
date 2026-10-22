@@ -7,6 +7,7 @@ erDiagram
     missing_persons ||..o{ missing_person_images : "사진 보관"
     missing_persons ||..o{ missing_person_ai_images : "AI 결과 보관"
     missing_person_images ||..o{ missing_person_ai_images : "생성 원본 참조"
+    members ||..o{ news_articles : "뉴스 승인"
 
     members {
         uuid id PK "회원 ID"
@@ -100,4 +101,20 @@ erDiagram
         timestamp(6) created_at "생성 시각"
         timestamp(6) updated_at "수정 시각"
         timestamp(6) deleted_at "NULL 허용 - 소프트 삭제 시각"
+    }
+
+    %% 승인한 기사만 저장합니다. 노출 중인 행(deleted_at NULL) 사이에서만 original_url이 UNIQUE입니다.
+    news_articles {
+        uuid id PK "뉴스 기사 ID"
+        varchar(600) title "HTML 태그를 제거한 네이버 검색 제목"
+        varchar(2048) original_url "언론사 원문 주소 - 노출 중 기사 사이 UNIQUE"
+        varchar(2048) naver_url "NULL 허용 - 네이버 뉴스 주소"
+        timestamp(6) published_at "NULL 허용 - 기사 작성 시각"
+        varchar(10) placement "HOME, MYPAGE 또는 BOTH"
+        timestamp(6) expires_at "NULL 허용 - 게시 종료 시각"
+        uuid approved_by FK "승인한 관리자 회원 ID"
+        varchar(2000) note "NULL 허용 - 승인 메모"
+        timestamp(6) created_at "승인 시각"
+        timestamp(6) updated_at "수정 시각"
+        timestamp(6) deleted_at "NULL 허용 - 노출 중단 시각"
     }

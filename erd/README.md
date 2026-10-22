@@ -1,6 +1,6 @@
 # 현재 엔티티 ERD
 
-기준: 백엔드의 도메인 엔티티 7개와 Flyway V1~V10. 실제 데이터·사진·인증키는 포함하지 않습니다.
+기준: 백엔드의 도메인 엔티티 8개와 Flyway V1~V10·V12. 실제 데이터·사진·인증키는 포함하지 않습니다.
 
 | 자료 | 용도 |
 | --- | --- |
@@ -18,6 +18,7 @@
 - `missing_persons` → `missing_person_images`: 실종아동 한 명에 원본 사진 0장 이상
 - `missing_persons` → `missing_person_ai_images`: 실종아동 한 명에 AI 결과 0장 이상
 - `missing_person_images` → `missing_person_ai_images`: 원본 사진 한 장으로 AI 결과 여러 개 생성 가능
+- `members` → `news_articles`: 관리자 한 명이 뉴스 기사 0개 이상 승인. 승인한 기사만 저장하며 노출 중단은 소프트 삭제
 
 사진 테이블의 `missing_person_id`는 `missing_persons.id`를 참조합니다. 대표 사진 하나를 아동 테이블에 넣는 대신 사진마다 UUID를 부여하고 원본 BYTEA·순번·출처·형식·크기·해시를 보관합니다. `photo_url`은 기존 대표 사진 출처로 남아 있지만 화면에서는 별도 사진 조회 API를 사용합니다.
 

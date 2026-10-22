@@ -113,7 +113,24 @@ CREATE TABLE missing_person_ai_images (
     CONSTRAINT pk_missing_person_ai_images PRIMARY KEY (id)
 );
 
--- 모든 CREATE TABLE 이후에 관계를 선언합니다. 아래 8개 구문까지 전체를 Import하세요.
+-- 관리자가 승인한 네이버 뉴스 기사: 노출 중단은 소프트 삭제입니다.
+CREATE TABLE news_articles (
+    id UUID NOT NULL,
+    title VARCHAR(600) NOT NULL,
+    original_url VARCHAR(2048) NOT NULL,
+    naver_url VARCHAR(2048) NULL,
+    published_at TIMESTAMP(6) NULL,
+    placement VARCHAR(10) NOT NULL,
+    expires_at TIMESTAMP(6) NULL,
+    approved_by UUID NOT NULL,
+    note VARCHAR(2000) NULL,
+    created_at TIMESTAMP(6) NOT NULL,
+    updated_at TIMESTAMP(6) NOT NULL,
+    deleted_at TIMESTAMP(6) NULL,
+    CONSTRAINT pk_news_articles PRIMARY KEY (id)
+);
+
+-- 모든 CREATE TABLE 이후에 관계를 선언합니다. 아래 9개 구문까지 전체를 Import하세요.
 
 ALTER TABLE posts
     ADD CONSTRAINT fk_posts_member
@@ -148,3 +165,7 @@ ALTER TABLE missing_person_ai_images
     ADD CONSTRAINT fk_ai_images_source_person
     FOREIGN KEY (source_image_id, missing_person_id)
     REFERENCES missing_person_images (id, missing_person_id);
+
+ALTER TABLE news_articles
+    ADD CONSTRAINT fk_news_articles_approver
+    FOREIGN KEY (approved_by) REFERENCES members (id);
